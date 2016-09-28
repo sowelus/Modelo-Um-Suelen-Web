@@ -4,15 +4,15 @@
     Author     : Suélen A. Camargo <s-a-camargo@hotmail.com>
 --%>
 
-<%@page import="br.edu.ifsul.dao.EspecialidadeDAO"%>
+<%@page import="br.edu.ifsul.dao.InstituicaoDAO"%>
 <%@page contentType="text/html" pageEncoding="ISO-8859-1"%>
-<jsp:useBean id="especialidadeDao" scope="session"
-             type="EspecialidadeDAO"/>
+<jsp:useBean id="instituicaoDao" scope="session"
+             type="InstituicaoDAO"/>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-        <title>Edição de Especialidades</title>
+        <title>Edição de Instituições</title>
         <script>
             function doSalvar(){
                 document.getElementById("acao").value = 'salvar';
@@ -25,16 +25,20 @@
         </script>                        
     </head>
     <body>
-        <h2>Edição de Especialidades</h2>
-        <h2><%=especialidadeDao.getMensagem()%></h2>
-        <form name="form" id="form" action="ServletEspecialidade" method="POST">
+        <h2>Edição de Instituições</h2>
+        <h2><%=instituicaoDao.getMensagem()%></h2>
+        <form name="form" id="form" action="ServletInstituicao" method="POST">
             Código: <input type="text" name="id" id="id"
-                           value="<%= especialidadeDao.getObjetoSelecionado().getId() == null
-                           ? "" : especialidadeDao.getObjetoSelecionado().getId() %>"
+                           value="<%= instituicaoDao.getObjetoSelecionado().getId() == null
+                           ? "" : instituicaoDao.getObjetoSelecionado().getId() %>"
                            size="6" readonly /><br/>
             Nome: <input type="text" name="nome" id="nome"
-                           value="<%= especialidadeDao.getObjetoSelecionado().getNome()== null
-                           ? "" : especialidadeDao.getObjetoSelecionado().getNome() %>"
+                           value="<%= instituicaoDao.getObjetoSelecionado().getNome()== null
+                           ? "" : instituicaoDao.getObjetoSelecionado().getNome() %>"
+                           size="20"/><br/>
+            Ano Fundacao: <input type="text" name="anoFundacao" id="anoFundacao"
+                           value="<%= instituicaoDao.getObjetoSelecionado().getAnoFundacao()== null
+                           ? "" : instituicaoDao.getObjetoSelecionado().getAnoFundacao()%>"
                            size="20"/><br/>
             <input type="button" value="Salvar" name="btnSalvar" onclick="doSalvar()"/> 
             <input type="button" value="Cancelar" name="btnCancelar" onclick="doCancelar()"/>
