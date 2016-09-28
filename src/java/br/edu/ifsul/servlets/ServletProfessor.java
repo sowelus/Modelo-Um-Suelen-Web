@@ -3,6 +3,11 @@ import br.edu.ifsul.dao.ProfessorDAO;
 import br.edu.ifsul.modelo.Professor;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -65,7 +70,15 @@ public class ServletProfessor extends HttpServlet {
             obj.setId(id);
             obj.setNome(request.getParameter("nome"));
             obj.setEmail(request.getParameter("email"));
-            obj.setNascimento(request.getParameter("nascimento"));
+            
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            Calendar nasc = Calendar.getInstance();
+            try {
+                nasc.setTime(sdf.parse(request.getParameter("nascimento")));
+            } catch (ParseException ex) {
+                Logger.getLogger(ServletAluno.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            obj.setNascimento(nasc); 
             obj.setTitulacao(request.getParameter("titulacao"));
             obj.setTopicosDeInteresse(request.getParameter("topicosDeInteresse"));
  

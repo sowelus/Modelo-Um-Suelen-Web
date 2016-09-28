@@ -2,6 +2,11 @@ package br.edu.ifsul.servlets;
 import br.edu.ifsul.dao.AlunoDAO;
 import br.edu.ifsul.modelo.Aluno;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -64,7 +69,15 @@ public class ServletAluno extends HttpServlet {
             obj.setId(id);
             obj.setNome(request.getParameter("nome"));
             obj.setEmail(request.getParameter("email"));
-            obj.setNascimento(request.getParameter("nascimento")); 
+            
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            Calendar nasc = Calendar.getInstance();
+            try {
+                nasc.setTime(sdf.parse(request.getParameter("nascimento")));
+            } catch (ParseException ex) {
+                Logger.getLogger(ServletAluno.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            obj.setNascimento(nasc); 
             dao.setObjetoSelecionado(obj);
             if (dao.validaObjeto(obj)){
                 dao.salvar(obj);
